@@ -1,9 +1,9 @@
 let citation = document.querySelector('.citation');
 let random = document.querySelector('.random');
 
-var quotes = [
+var quotes = {
 
-["l\'amour c\'est l'\idéal de l\'égalité", 
+"famousWomen": ["l\'amour c\'est l'\idéal de l\'égalité", 
 "je voudrais être Maria", 
 "il y a La Callas qui exige que je me porte avec sa dignité", 
 "une différence de goût", 
@@ -15,7 +15,7 @@ var quotes = [
 "ce dont nous avons besoin est d'aimer", 
 "sans nous épuiser" ],
 
-["la vie c'est comme une bicyclette", 
+"famousMen": ["la vie c'est comme une bicyclette", 
 "il faut avancer pour ne pas perdre l'équilibre", 
 "un seul être vous manque", 
 "et tout est dépeuplé", 
@@ -29,46 +29,79 @@ var quotes = [
 "vendre la peau de l'ours",
 "avant de l'avoir tué",
 "le monde du passe-temps",
-"de la montre qui tourne",
-"couper les cheveux en quatre"]
+"de la montre qui tourne"]
 
-]
+}
+
+//Génération d'un morceau de citation random
+let viewedQuotes=[];
+function getRandomQuote(quotes){
+    let randomQuote = Math.floor(Math.random()*quotes.length);
+    let splicedQuote = quotes.splice(randomQuote,1)[0];
+    viewedQuotes.push(splicedQuote);
+
+    do {
+        quotes = viewedQuotes.splice(0,viewedQuotes.length);
+        viewedQuotes=[];
+    } while (quotes.length === 0 );
+    
+
+    //if (quotes.length === 0){
+        //quotes == viewedQuotes.splice(0,viewedQuotes.length); 
+        //viewedQuotes=[];
+    //}
+
+    return splicedQuote;   
+    }
+
+    //Génération d'une citation avec les 3 morceaux
+    function generateQuote(quotes){
+    
+        let part1 = getRandomQuote(quotes);
+        let part2 = getRandomQuote(quotes);
+        let part3 = getRandomQuote(quotes);
+           
+        let newCitation = part1.charAt(0).toUpperCase() + part1.slice(1) + ": " + part2 + ", " + part3 + "."; 
+        
+        citation.textContent = newCitation;
+        citation.style.visibility = 'visible';
+        console.log(newCitation);
+
+    }
 
 random.addEventListener('click', ()=> {
-console.log(quotes);
+//console.log(quotes);
 //Récupération des variables
     //récupération du nombre de citations demandé dans la variable valeur
     let customNumber = document.querySelector('input[name=numberChoice]:checked')
     let valeur= customNumber.value;
-    //console.log(valeur);
+    console.log(valeur);
 
     //récupération du type de citation demandé dans la variable quotes
     let customQuotes = document.querySelector('input[name=textChoice]:checked');
     let quoteType = customQuotes.value;
-    //console.log(quoteType);
-    
-    let viewedQuotes=[];
-//Génération d'un morceau de citation random
-    function getRandomQuote(quotes){
-        let randomQuote = Math.floor(Math.random()*quotes.length);
-        let splicedQuote = quotes.splice(randomQuote,1)[0];
-    
-        viewedQuotes.push(splicedQuote);
-        
-        if (quotes.length === 0){
-            quotes = viewedQuotes.splice(0,viewedQuotes.length);
-            console.log(viewedQuotes);
-            viewedQuotes=[];
-            console.log(quotes);
-            
-        } 
-        
-        //boucler sur nouveau tableau et pour chaque entrée faire un push dans quotes
-        
-        return splicedQuote;   
-        }
+    console.log(quoteType);
 
-    //splice the object from the quotes array and store it into a new variable "splicedQuote"
+
+//Application en fonction du type de citatio et du nombre séléctionnés
+    let n=valeur;
+    let i=0;
+    while (i<n){
+        if(quoteType==='famousWomen'){
+            generateQuote(quotes.famousWomen);
+        }
+        else {
+            generateQuote(quotes.famousMen);
+        }
+        i++;
+
+    }
+
+});
+
+//getRandomQuotes : boucler sur nouveau tableau et pour chaque entrée faire un push dans quotes?
+
+//splice the object from the quotes array and store it into a new variable "splicedQuote"
         //let randomQuote = Math.floor(Math.random()*quotes.length);
         //let splicedQuote = quotes.splice(randomQuote,1);
     
@@ -89,17 +122,8 @@ console.log(quotes);
     //return splicedQuote;    
     
     //}
-    
-    //choix du sous-tableau dans le tableau "quotes"
-    if(quoteType==='famousWomen'){
-        getRandomQuote(quotes[0]);
-    } else {
-        getRandomQuote(quotes[1]);
-    }
 
-//Génération d'une citation avec les 3 morceaux
-
-    //function generateQuote(){
+//function generateQuote(){
         
         //let selectedRandomQuote = getRandomQuote(quotes);
         //let HTML = "<p class='quote'>" + selectedRandomQuote.quote + "</p>";
@@ -113,35 +137,6 @@ console.log(quotes);
         //console.log(newCitation);
     //}
 
-    function generateQuote(quotes){
-    
-    let part1 = getRandomQuote(quotes);
-    let part2 = getRandomQuote(quotes);
-    let part3 = getRandomQuote(quotes);
-       
-    let newCitation = part1.charAt(0).toUpperCase() + part1.slice(1) + ": " + part2 + ", " + part3 + "."; //!//problème de Majuscule en début de phrase
-    
-    citation.textContent = newCitation;
-    citation.style.visibility = 'visible';
-    console.log(newCitation);
-        
-    }
-
-//Application en fonction du type et du nombre séléctionnés
-    let n=valeur;
-    let i=0;
-    while (i<n){
-        if(quoteType==='famousWomen'){
-            generateQuote(quotes[0]);
-        }
-        else {
-            generateQuote(quotes[1]);
-        }
-        i++;
-
-    }
-
-});
 
 
 
