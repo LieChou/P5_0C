@@ -1,0 +1,28 @@
+h1, h2
+{
+    text-align: center; 
+}
+
+body
+{
+    background-color: white;
+    color : black
+}
+
+.citation
+{
+    font-style: italic;
+}
+
+.btn, .btn-group-toogle
+{
+    border-color: rgb(201,173,96)!important;
+    color: rgb(201,173,96)!important;
+    
+}
+
+.line
+{
+    border-bottom-color: rgb(201,173,96);
+    border-bottom-style: dashed;
+}
