@@ -35,20 +35,20 @@ var quotes = {
 
 //Génération d'un morceau de citation random
 let viewedQuotes=[];
+let splicedQuote =[]
 let randomQuote = Math.floor(Math.random()*quotes.length);
 
 function getRandomQuote(quotes){
 
-    let splicedQuote = quotes.splice(randomQuote,1)[0];
-
+let splicedQuote = quotes.splice(randomQuote,1)[0];
+    
     if (quotes.length !== 0){
-        viewedQuotes.push(splicedQuote);
-        return splicedQuote; 
+        viewedQuotes.push(splicedQuote);  
     } else {
         quotes.push(...viewedQuotes);
-        viewedQuotes.length===0;
-        return splicedQuote; 
+        viewedQuotes =[];
     } 
+    return splicedQuote; 
 }
 
 //Génération d'une citation avec les 3 morceaux
@@ -91,7 +91,7 @@ random.addEventListener('click', ()=> {
             generateQuote(quotes.famousMen);
         }
         i++;
-
+        
     }
 
 });
