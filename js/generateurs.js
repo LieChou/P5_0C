@@ -40,14 +40,13 @@ let randomQuote = Math.floor(Math.random()*quotes.length);
 function getRandomQuote(quotes){
 
     let splicedQuote = quotes.splice(randomQuote,1)[0];
-    let usedQuotes = viewedQuotes.splice(0,viewedQuotes.length);
 
     if (quotes.length !== 0){
         viewedQuotes.push(splicedQuote);
         return splicedQuote; 
     } else {
-        quotes.push(usedQuotes);
-        viewedQuotes=[];
+        quotes.push(...viewedQuotes);
+        viewedQuotes.length===0;
         return splicedQuote; 
     } 
 }
@@ -62,8 +61,8 @@ function generateQuote(quotes){
     let newCitation = part1.charAt(0).toUpperCase() + part1.slice(1) + ": " + part2 + ", " + part3 + "."; 
         
     citation.textContent = newCitation;
-        citation.style.visibility = 'visible';
-        console.log(newCitation);
+    citation.style.visibility = 'visible';
+    console.log(newCitation);
 
     }
 
