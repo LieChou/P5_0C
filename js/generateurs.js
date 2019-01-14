@@ -35,42 +35,40 @@ var quotes = {
 
 //Génération d'un morceau de citation random
 let viewedQuotes=[];
+let randomQuote = Math.floor(Math.random()*quotes.length);
+
 function getRandomQuote(quotes){
-    let randomQuote = Math.floor(Math.random()*quotes.length);
+
     let splicedQuote = quotes.splice(randomQuote,1)[0];
-    viewedQuotes.push(splicedQuote);
+    let usedQuotes = viewedQuotes.splice(0,viewedQuotes.length);
 
-    do {
-        quotes = viewedQuotes.splice(0,viewedQuotes.length);
+    if (quotes.length !== 0){
+        viewedQuotes.push(splicedQuote);
+        return splicedQuote; 
+    } else {
+        quotes.push(usedQuotes);
         viewedQuotes=[];
-    } while (quotes.length === 0 );
+        return splicedQuote; 
+    } 
+}
+
+//Génération d'une citation avec les 3 morceaux
+function generateQuote(quotes){
     
-
-    //if (quotes.length === 0){
-        //quotes == viewedQuotes.splice(0,viewedQuotes.length); 
-        //viewedQuotes=[];
-    //}
-
-    return splicedQuote;   
-    }
-
-    //Génération d'une citation avec les 3 morceaux
-    function generateQuote(quotes){
-    
-        let part1 = getRandomQuote(quotes);
-        let part2 = getRandomQuote(quotes);
-        let part3 = getRandomQuote(quotes);
+    let part1 = getRandomQuote(quotes);
+    let part2 = getRandomQuote(quotes);
+    let part3 = getRandomQuote(quotes);
            
-        let newCitation = part1.charAt(0).toUpperCase() + part1.slice(1) + ": " + part2 + ", " + part3 + "."; 
+    let newCitation = part1.charAt(0).toUpperCase() + part1.slice(1) + ": " + part2 + ", " + part3 + "."; 
         
-        citation.textContent = newCitation;
+    citation.textContent = newCitation;
         citation.style.visibility = 'visible';
         console.log(newCitation);
 
     }
 
 random.addEventListener('click', ()=> {
-//console.log(quotes);
+
 //Récupération des variables
     //récupération du nombre de citations demandé dans la variable valeur
     let customNumber = document.querySelector('input[name=numberChoice]:checked')
@@ -83,7 +81,7 @@ random.addEventListener('click', ()=> {
     console.log(quoteType);
 
 
-//Application en fonction du type de citatio et du nombre séléctionnés
+//Application en fonction du type de citation et du nombre séléctionnés
     let n=valeur;
     let i=0;
     while (i<n){
@@ -99,43 +97,6 @@ random.addEventListener('click', ()=> {
 
 });
 
-//getRandomQuotes : boucler sur nouveau tableau et pour chaque entrée faire un push dans quotes?
-
-//splice the object from the quotes array and store it into a new variable "splicedQuote"
-        //let randomQuote = Math.floor(Math.random()*quotes.length);
-        //let splicedQuote = quotes.splice(randomQuote,1);
-    
-    //push the spliced object into the "viewedQuotes" array
-        //let viewedQuotes = [];
-        //viewedQuotes.push(splicedQuote);
-    
-    //"if" statement to check if first array is now empty = all quotes have been used
-    // if true then change it back to original state and set viewQuotes to an empty array
-        //if (quotes.length == 0){
-            //quotes = viewedQuotes.splice(0,viewedQuotes.length);
-        //viewedQuotes=[];
-        //let randomQuote = Math.floor(Math.random()*quotes.length);
-        //let splicedQuote = quotes.splice(randomQuote,1);
-        //viewedQuotes.push(splicedQuote);
-        //}
-
-    //return splicedQuote;    
-    
-    //}
-
-//function generateQuote(){
-        
-        //let selectedRandomQuote = getRandomQuote(quotes);
-        //let HTML = "<p class='quote'>" + selectedRandomQuote.quote + "</p>";
-        //if (!selectedRandomQuote.citation){} else {
-            //HTML += '<p>' + '<span class="citation">' + selectedRandomQuote.citation + '</span>' + '</p>';
-        //}
-        //document.getElementById('citation').innerHTML = HTML;
-        //let newCitation = getRandomQuote(quotes) + " : " + getRandomQuote(quotes) + ", " + getRandomQuote(quotes) + ".";
-        //citation.textContent = newCitation,
-        //citation.style.visibility = 'visible';
-        //console.log(newCitation);
-    //}
 
 
 
